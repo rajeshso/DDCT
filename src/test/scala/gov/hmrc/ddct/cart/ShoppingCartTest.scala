@@ -1,7 +1,7 @@
 package gov.hmrc.ddct.cart
 
 import gov.hmrc.ddct.UnitSpec
-import gov.hmrc.ddct.menu.{Coffee, Cola}
+import gov.hmrc.ddct.menu.{CheeseSandwich, Coffee, Cola}
 
 class ShoppingCartTest extends UnitSpec {
 
@@ -27,5 +27,21 @@ class ShoppingCartTest extends UnitSpec {
     myCart += Coffee
     myCart += Coffee
     myCart.itemCount should be(3)
+  }
+  "MyShoppingCart" should "add different kinds of items record the number of items as three" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart += CheeseSandwich
+    myCart.itemCount should be(3)
+  }
+
+  "MyShoppingCart" should "add varieties of items and record the multiples of same items as individual items" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart += Coffee
+    myCart += CheeseSandwich
+    myCart.itemCount should be(4)
   }
 }
