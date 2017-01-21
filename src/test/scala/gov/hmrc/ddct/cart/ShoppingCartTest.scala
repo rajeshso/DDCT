@@ -101,4 +101,45 @@ class ShoppingCartTest extends UnitSpec {
     cart.itemCount should be(2)
     cart.cartItemsTotalPrice should be(6.6)
   }
+  "MyShoppingCart" should "accept one Non Hot Food and should add 10% of service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += CheeseSandwich
+    cart.itemCount should be(1)
+    cart.cartItemsTotalPrice should be(2.2)
+  }
+  "MyShoppingCart" should "accept one Non Hot Food and One Drink and should add 10% of service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += CheeseSandwich
+    cart += Cola
+    cart.itemCount should be(2)
+    cart.cartItemsTotalPrice should be(2.75)
+  }
+  "MyShoppingCart" should "accept one Non Hot Food  and One Hot Food and should add 20% of service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += CheeseSandwich
+    cart.itemCount should be(1)
+    cart += SteakSandwich
+    cart.itemCount should be(2)
+    cart.cartItemsTotalPrice should be(7.8)
+  }
+  "MyShoppingCart" should "accept one Non Hot Food, One Hot Food and One Drink and should add 20% of service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += CheeseSandwich
+    cart += SteakSandwich
+    cart += Cola
+    cart.cartItemsTotalPrice should be(8.4)
+  }
+  "MyShoppingCart" should "accept two of all foods and drinks and should add 20% of service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += CheeseSandwich
+    cart += SteakSandwich
+    cart += Cola
+    cart += Coffee
+    cart += CheeseSandwich
+    cart += SteakSandwich
+    cart += Cola
+    cart += Coffee
+    cart.itemCount should be(8)
+    cart.cartItemsTotalPrice should be(19.2)
+  }
 }
