@@ -32,7 +32,7 @@ class ShoppingCart(additionalCharges: ServiceCharge = DisableServiceCharge) {
         billWithoutServiceCharge
     }
 
-    def hotFoodServiceCharge(bill: Double): Double = bill * 0.2
+    def hotFoodServiceCharge(bill: Double): Double = Math.min(20, bill * 0.2)
 
     def anyFoodServiceCharge(bill: Double): Double = bill * 0.1
 

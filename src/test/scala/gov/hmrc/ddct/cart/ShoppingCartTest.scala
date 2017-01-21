@@ -142,4 +142,63 @@ class ShoppingCartTest extends UnitSpec {
     cart.itemCount should be(8)
     cart.cartItemsTotalPrice should be(19.2)
   }
+  "MyShoppingCart" should "When purchased items include any hot food apply a service charge of 20% to the total bill with a maximum £20 service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart.itemCount should be(0)
+    cart += SteakSandwich
+    cart.itemCount should be(1)
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart.itemCount should be (101)
+    // Coffee 100 cups = $100
+    // Hot Food 1 plate = $4.5
+    // Total = 104.5
+    // Service charge = 20.9
+    // Actual Total with non-Max Service Charge = 104.5 + 20.9 = 125.4
+    // Max Service Charge ceiling = 20
+    // Total + Service charge ceiling = 104.5 + 20 = 124.5
+    cart.cartItemsTotalPrice should be(124.5)
+  }
+  "MyShoppingCart" should "When purchased items does NOT include any Non hot food apply a service charge of 10% to the total bill but WITHOUT a maximum CEILING service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart.itemCount should be(0)
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;cart += CheeseSandwich;
+    cart.itemCount should be(100)
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart += Coffee; cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;cart += Coffee;
+    cart.itemCount should be (210)
+    // Cola -> 0.5, Coffee -> 1, CheeseSandwich -> 2, SteakSandwich -> 4.5
+    // Coffee 110 cups * $1 = $110
+    // Cheese Sandwich 100 plates = $200
+    // Total = 310
+    // Service charge = 31
+    // Actual Total with non-Max Service Charge = 310 + 31 = 341
+    cart.cartItemsTotalPrice should be(341)
+  }
 }
