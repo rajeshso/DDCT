@@ -1,6 +1,7 @@
 package gov.hmrc.ddct.cart
 
 import gov.hmrc.ddct.UnitSpec
+import gov.hmrc.ddct.gov.hmrc.ddct.tip.EnableServiceCharge
 import gov.hmrc.ddct.menu.{CheeseSandwich, Coffee, Cola, SteakSandwich}
 
 class ShoppingCartTest extends UnitSpec {
@@ -75,5 +76,29 @@ class ShoppingCartTest extends UnitSpec {
     myCart += SteakSandwich
     myCart.cartItemsTotalPrice should be(8)
     myCart.itemCount should be(4)
+  }
+  "MyShoppingCart" should "accept two Colas but there should not be any service charges" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += Cola
+    cart.cartItemsTotalPrice should be(0.5)
+    cart.itemCount should be(1)
+    cart += Cola
+    cart.itemCount should be(2)
+    cart.cartItemsTotalPrice should be(1.0)
+  }
+
+  "MyShoppingCart" should "accept one Hot Food and the price should include service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += SteakSandwich
+    cart.itemCount should be(1)
+    cart.cartItemsTotalPrice should be(5.4)
+  }
+
+  "MyShoppingCart" should "accept one Hot Food and one Drink and the price should include 20% service charge" in {
+    val cart = new ShoppingCart(EnableServiceCharge)
+    cart += SteakSandwich
+    cart += Coffee
+    cart.itemCount should be(2)
+    cart.cartItemsTotalPrice should be(6.6)
   }
 }

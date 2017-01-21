@@ -3,6 +3,7 @@ package gov.hmrc.ddct.cart
 import gov.hmrc.ddct.gov.hmrc.ddct.tip.{DisableServiceCharge, EnableServiceCharge, ServiceCharge}
 import gov.hmrc.ddct.menu._
 
+import scala.language.postfixOps
 import scala.math.BigDecimal.RoundingMode
 
 class ShoppingCart(additionalCharges: ServiceCharge = DisableServiceCharge) {
@@ -19,9 +20,18 @@ class ShoppingCart(additionalCharges: ServiceCharge = DisableServiceCharge) {
         total + prices(item)
       }
 
+    def totalBillWithServiceCharge: Double = {
+      val billWithoutServiceCharge = totalBilllWithoutServiceCharge
+      if (items collect { case hotFood: HotFood => hotFood } nonEmpty) {
+        billWithoutServiceCharge + hotFoodServiceCharge(billWithoutServiceCharge)
+      } else
+        billWithoutServiceCharge
+    }
+
+    def hotFoodServiceCharge(bill: Double): Double = bill * 0.2
+
     additionalCharges match {
-      case EnableServiceCharge =>
-        ???
+      case EnableServiceCharge => BigDecimal(totalBillWithServiceCharge).setScale(2, RoundingMode.HALF_UP).toDouble
       case DisableServiceCharge => BigDecimal(totalBilllWithoutServiceCharge).setScale(2, RoundingMode.HALF_UP).toDouble
     }
   }
