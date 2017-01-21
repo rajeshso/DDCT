@@ -6,4 +6,6 @@ class ShoppingCart {
   private var items = List.empty[Item]
 
   def itemCount: Int = items.size
+
+  def +=(item: Item): Unit = items = items :+ item
 }
