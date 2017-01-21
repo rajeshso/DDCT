@@ -1,7 +1,7 @@
 package gov.hmrc.ddct.cart
 
 import gov.hmrc.ddct.UnitSpec
-import gov.hmrc.ddct.menu.{CheeseSandwich, Coffee, Cola}
+import gov.hmrc.ddct.menu.{CheeseSandwich, Coffee, Cola, SteakSandwich}
 
 class ShoppingCartTest extends UnitSpec {
 
@@ -42,6 +42,38 @@ class ShoppingCartTest extends UnitSpec {
     myCart += Coffee
     myCart += Coffee
     myCart += CheeseSandwich
+    myCart.itemCount should be(4)
+  }
+  "MyShoppingCart" should "add a Cola and tell the price as 0.5 when there is no service charge" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart.itemCount should be(1)
+    myCart.cartItemsTotalPrice should be(0.5)
+  }
+
+  "MyShoppingCart" should "add a Cola and a Coffee and tell the price as 1.5 when there is no service charge" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart.itemCount should be(2)
+    myCart.cartItemsTotalPrice should be(1.5)
+  }
+
+  "MyShoppingCart" should "add two Colas and Coffee and tell the price as 2 and the total items should be 3 when there is no offer" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart += Cola
+    myCart.cartItemsTotalPrice should be(2)
+    myCart.itemCount should be(3)
+  }
+  "MyShoppingCart" should "add one of all the available Items and tell the price as 8 and the total items should be 4 when there is no offer" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart += CheeseSandwich
+    myCart += SteakSandwich
+    myCart.cartItemsTotalPrice should be(8)
     myCart.itemCount should be(4)
   }
 }
