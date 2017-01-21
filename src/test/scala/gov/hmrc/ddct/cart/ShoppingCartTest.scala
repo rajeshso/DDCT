@@ -21,4 +21,11 @@ class ShoppingCartTest extends UnitSpec {
     myCart += Coffee
     myCart.itemCount should be(2)
   }
+  "MyShoppingCart" should "record the multiples of same items as individual items" in {
+    val myCart = new ShoppingCart()
+    myCart += Cola
+    myCart += Coffee
+    myCart += Coffee
+    myCart.itemCount should be(3)
+  }
 }
